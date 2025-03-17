@@ -1,0 +1,41 @@
+@startuml
+interface Grafico {
+  +exibir(): void
+  +getTitulo(): String
+}
+
+class Video {
+  -titulo: String
+  -arquivo: String
+  +Video(titulo: String, arquivo: String)
+  +exibir(): void
+  +getTitulo(): String
+  -carregarArquivoDeVideo(): void
+}
+
+class VideoProxy {
+  -titulo: String
+  -arquivo: String
+  -videoReal: Video
+  +VideoProxy(titulo: String, arquivo: String)
+  +exibir(): void
+  +getTitulo(): String
+  +estaCarregado(): boolean
+}
+
+class ListaDeVideos {
+  -videos: List<VideoProxy>
+  +ListaDeVideos()
+  +adicionarVideo(titulo: String, arquivo: String): void
+  +exibirLista(): void
+  +reproduzirVideo(indice: int): void
+  +getVideo(indice: int): VideoProxy
+  +getTamanho(): int
+}
+
+Grafico <|.. Video
+Grafico <|.. VideoProxy
+ListaDeVideos o-- VideoProxy
+VideoProxy --> Video
+
+@enduml
